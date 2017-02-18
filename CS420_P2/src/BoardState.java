@@ -1,83 +1,72 @@
+import java.util.Arrays;
+
 /**
  * Created by Gabriel on 2017/02/17.
  */
-public class BoardState {
-   private boolean[][] board;
+public class BoardState implements Comparable<BoardState> {
+   private int[] board;
 
-   public BoardState(boolean[][] board) {
+   public BoardState(int[] board) {
       assert(board.length == Main.BOARD_SIZE);
 
-      this.board = new boolean[Main.BOARD_SIZE][Main.BOARD_SIZE];
+      this.board = new int[board.length];
 
-      for (int i = 0; i < this.board.length; i++) {
-         for (int j = 0; j < this.board.length ;j++) {
-            this.board[i][j] = board[i][j];
-         }
-      }
+      System.arraycopy(board,0,this.board,0,board.length);
    }
 
-   public boolean[][] getBoard() {
-      boolean[][] board = new  boolean[this.board.length][this.board.length];
+   public int[] getBoard() {
+      int[] board = new  int[this.board.length];
 
-      for (int i = 0; i < board.length; i++) {
-         System.arraycopy(this.board[i], 0, board[i], 0, board.length);
-      }
+      System.arraycopy(this.board,0,board,0,board.length);
 
+      return board;
+   }
+
+   public int[] getBoardInsecure() {
       return board;
    }
 
    public String toString() {
       String out = "";
 
-      for (boolean[] row: board) {
-         for (boolean b: row) {
-            // displays queens as "q" and blank squares as "-"
-            out = String.format("%s%s ", out, b ? "q" : "-");
+      for (int i: board) {
+         for (int j = 0; j < Main.BOARD_SIZE; j++) {
+            out += String.format("%s ",(j == i) ? "q" : "-");
          }
+
          out += "\n";
       }
 
       return out;
    }
 
-   public static int countConflicts(boolean[][] board) {
+   public int getFitness() {
+      return 0;
+   }
+
+   public static int countConflicts(int[] board) {
       int count = 0;
-      int x,y,xx,yy;
+      int j;
 
-      for (x = 0; x < Main.BOARD_SIZE; x++) {
-         for (y = 0; y < Main.BOARD_SIZE; y++) {
-            // if square contains queen
-            if (board[x][y]) {
-               // check horizontal
-               for (xx = x + 1; xx < Main.BOARD_SIZE; xx++) {
-                  if (board[xx][y]) {
-                     count++;
-                  }
-               }
+      for (int i = 0; i < board.length; i++) {
+         for (j = i+1; j < board.length; j++) {
+            //check horizontal
+            if (board[j] == board[i]) {
+               count++;
+            }
 
-               // check diagonal down
-               xx = x;
-               yy = y;
-
-               while (++xx < Main.BOARD_SIZE && ++yy < Main.BOARD_SIZE) {
-                  if (board[xx][yy]) {
-                     count++;
-                  }
-               }
-
-               // check diagonal up
-               xx = x;
-               yy = y;
-
-               while (++xx < Main.BOARD_SIZE && --yy > -1) {
-                  if (board[xx][yy]) {
-                     count++;
-                  }
-               }
+            // check diagonals
+            if (Math.abs(board[j] - board[i]) == Math.abs(i - j)) {
+               count++;
             }
          }
       }
 
       return count;
+   }
+
+   @Override
+   public int compareTo(BoardState boardState) {
+      return boardState.getFitness() - getFitness();
    }
 }

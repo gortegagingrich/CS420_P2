@@ -2,12 +2,12 @@
  * Created by Gabriel on 2017/02/17.
  */
 public class HillClimbSolver implements Solver {
-   private BoardState board;
+   private int[] board;
    private int numConflicts;
 
-   public HillClimbSolver(BoardState board) {
+   public HillClimbSolver(int[] board) {
       this.board = board;
-      numConflicts = BoardState.countConflicts(board.getBoard());
+      numConflicts = BoardState.countConflicts(board);
    }
 
    @Override
@@ -24,46 +24,36 @@ public class HillClimbSolver implements Solver {
    }
 
    public Result solveRecursion() {
-      int[][] conflictsGrid = new int[Main.BOARD_SIZE][Main.BOARD_SIZE];
-      boolean[][] tempBoard, successorBoard;
-      int[] min = {Integer.MAX_VALUE, -1, -1};
-      int i,j;
+      // {number of conflicts, index to change, value of index}
+      int[] min = {Integer.MAX_VALUE,0,0};
+      int[] nextBoard = new int[Main.BOARD_SIZE];
+      int conflictCount;
+      System.arraycopy(board,0,nextBoard,0,Main.BOARD_SIZE);
 
-      // determine which change if any would result in the fewest conflicts
-      for (i = 0; i < Main.BOARD_SIZE; i++) {
-         tempBoard = board.getBoard();
+      // find successor with minimum number of conflicts
+      for (int i = 0; i < nextBoard.length; i++) {
+         for (int j = 0; j < nextBoard.length; j++) {
+            nextBoard[i] = j;
+            conflictCount = BoardState.countConflicts(nextBoard);
 
-         // set entire row to false
-         for (j = 0; j < Main.BOARD_SIZE; j++) {
-            tempBoard[i][j] = false;
-         }
-
-         // record number of conflicts for every possible state of the row
-         for (j = 0; j < Main.BOARD_SIZE; j++) {
-            tempBoard[i][j] = true;
-            conflictsGrid[i][j] = BoardState.countConflicts(tempBoard);
-            tempBoard[i][j] = false;
-
-            // update location of minimum conflicts if necessary
-            if (conflictsGrid[i][j] < min[0]) {
-               min = new int[] {conflictsGrid[i][j], i, j};
+            if (conflictCount < min[0]) {
+               min[0] = conflictCount;
+               min[1] = i;
+               min[2] = j;
             }
          }
+
+         nextBoard[i] = board[i];
       }
 
-      // if new minimum has fewer conflicts that current state
+      // if successor has fewer than current, recursively call on successor
       if (min[0] < numConflicts) {
          numConflicts = min[0];
-         successorBoard = board.getBoard();
+         board[min[1]] = min[2];
 
-         for (i = 0; i < Main.BOARD_SIZE; i++) {
-            successorBoard[min[1]][i] = (min[2]==i);
-         }
-
-         board = new BoardState(successorBoard);
-         return solve();
+         return solveRecursion();
       }
 
-      return new Result(board);
+      return (new Result(new BoardState(board)));
    }
 }
