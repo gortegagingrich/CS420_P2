@@ -7,6 +7,11 @@ public class HillClimbSolver {
    private int[] board;
    private int   numConflicts;
 
+   /**
+    * Sets up to solve given board
+    *
+    * @param board Representation of board. {index of queen 1, index of queen 2, ...}
+    */
    public HillClimbSolver(int[] board) {
       this.board = board;
       numConflicts = BoardState.countConflicts(board);

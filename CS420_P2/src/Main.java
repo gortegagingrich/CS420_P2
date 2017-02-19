@@ -5,7 +5,8 @@ public class Main {
    public static final int BOARD_SIZE = 20;
 
    public static void main(String[] args) {
-      getData(200);
+      //getData(200);
+      testRandomBoard();
    }
 
    private static void getData(int num) {
@@ -34,7 +35,7 @@ public class Main {
       genetic = (new GeneticSolver()).solve();
 
 
-      System.out.printf("Hill Climbing Algorithm:\n%s\n" +
+      System.out.printf("\nHill Climbing Algorithm:\n%s\n" +
                         "Genetic Algorithm:\n%s\n",
                         hillClimb,
                         genetic);
