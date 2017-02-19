@@ -7,6 +7,7 @@ public class BoardState {
    private int[]   board;
    private boolean modified;
    private int     fitness;
+   public static int COUNT = 0;
 
    /**
     * Creates board state with given board

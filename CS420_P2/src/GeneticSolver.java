@@ -10,8 +10,13 @@ public class GeneticSolver {
       // The population size took some tweaking, but 200 makes it finish relatively quickly
       population = new BoardState[200];
 
+      // cost is going to be the number of board states generated
+      BoardState.COUNT = 0;
+
       for (int i = 0; i < population.length; i++) {
          population[i] = new BoardState(BoardState.generateBoard());
+         // increment cost
+         BoardState.COUNT++;
       }
    }
 
@@ -45,6 +50,9 @@ public class GeneticSolver {
             if (Math.random() < 0.1) {
                mutate(nextPopulation[i]);
             }
+
+            // increment cost
+            BoardState.COUNT++;
          }
 
          population = nextPopulation;

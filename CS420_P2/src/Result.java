@@ -22,4 +22,10 @@ public class Result {
                            BoardState.countConflicts(board.getBoard()),
                            time * 0.000000001);
    }
+
+   public String toCSV() {
+      // conflict count, time (seconds), Board Count
+      String out = String.format("%d,%f,%d\n",BoardState.countConflicts(board.getBoard()),time*0.000000001,BoardState.COUNT);
+      return out;
+   }
 }

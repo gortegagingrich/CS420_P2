@@ -21,6 +21,8 @@ public class HillClimbSolver {
       Result r;
       Long start, end;
 
+      BoardState.COUNT = 0;
+
       start = System.nanoTime();
       r = solveRecursion();
       end = System.nanoTime();
@@ -41,11 +43,16 @@ public class HillClimbSolver {
       int conflictCount;
       System.arraycopy(board, 0, nextBoard, 0, Main.BOARD_SIZE);
 
+
+
       // find successor with minimum number of conflicts
       for (int i = 0; i < nextBoard.length; i++) {
          for (int j = 0; j < nextBoard.length; j++) {
             nextBoard[i] = j;
             conflictCount = BoardState.countConflicts(nextBoard);
+
+            // cost is number of states checked
+            BoardState.COUNT++;
 
             if (conflictCount < min[0]) {
                min[0] = conflictCount;
