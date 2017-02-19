@@ -109,6 +109,10 @@ public class BoardState {
       return out;
    }
 
+   public void setModified(boolean modified) {
+      this.modified = modified;
+   }
+
    /**
     * Fitness function for use in the Genetic algorithm
     *

@@ -14,10 +14,13 @@ public class Main {
       System.out.println("Running hill climb...");
       hillClimb = (new HillClimbSolver(BoardState.generateBoard())).solve();
 
+      System.out.println("Running genetic...");
+      genetic = (new GeneticSolver()).solve();
 
-      System.out.printf("Hill Climbing Solution:\n%s\n" +
-                        "Genetic Solution:\n%s\n",
+
+      System.out.printf("Hill Climbing Algorithm:\n%s\n" +
+                        "Genetic Algorithm:\n%s\n",
                         hillClimb,
-                        "Not implemented yet");
+                        genetic);
    }
 }
