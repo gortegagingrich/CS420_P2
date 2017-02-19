@@ -12,21 +12,12 @@ public class Main {
       Result hillClimb, genetic;
 
       System.out.println("Running hill climb...");
-      hillClimb = (new HillClimbSolver(generateBoard())).solve();
+      hillClimb = (new HillClimbSolver(BoardState.generateBoard())).solve();
+
 
       System.out.printf("Hill Climbing Solution:\n%s\n" +
                         "Genetic Solution:\n%s\n",
                         hillClimb,
                         "Not implemented yet");
-   }
-
-   public static int[] generateBoard() {
-      int[] board = new int[BOARD_SIZE]; // all are false by default
-
-      for (int i = 0; i < board.length; i++) {
-         board[i] = (int)(Math.random() * BOARD_SIZE);
-      }
-
-      return board;
    }
 }

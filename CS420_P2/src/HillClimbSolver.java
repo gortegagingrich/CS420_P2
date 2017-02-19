@@ -1,16 +1,22 @@
 /**
+ * Object that solves an N-queens problem using hill climbing local search algorithm.
+ * <p>
  * Created by Gabriel on 2017/02/17.
  */
-public class HillClimbSolver implements Solver {
+public class HillClimbSolver {
    private int[] board;
-   private int numConflicts;
+   private int   numConflicts;
 
    public HillClimbSolver(int[] board) {
       this.board = board;
       numConflicts = BoardState.countConflicts(board);
    }
 
-   @Override
+   /**
+    * Solves the instance's board.
+    *
+    * @return Object containing the generated solution and information on runtime.
+    */
    public Result solve() {
       Result r;
       Long start, end;
@@ -23,12 +29,17 @@ public class HillClimbSolver implements Solver {
       return r;
    }
 
+   /**
+    * Recursive implementation of Hill Climbing local search algorithm
+    *
+    * @return Result instance with runtime not set
+    */
    public Result solveRecursion() {
       // {number of conflicts, index to change, value of index}
-      int[] min = {Integer.MAX_VALUE,0,0};
+      int[] min = {Integer.MAX_VALUE, 0, 0};
       int[] nextBoard = new int[Main.BOARD_SIZE];
       int conflictCount;
-      System.arraycopy(board,0,nextBoard,0,Main.BOARD_SIZE);
+      System.arraycopy(board, 0, nextBoard, 0, Main.BOARD_SIZE);
 
       // find successor with minimum number of conflicts
       for (int i = 0; i < nextBoard.length; i++) {
