@@ -5,7 +5,7 @@ import java.util.Arrays;
  * <p>
  * Created by Gabriel on 2017/02/17.
  */
-public class GeneticSolver {
+class GeneticSolver {
    private BoardState[] population;
 
    /**
@@ -27,6 +27,7 @@ public class GeneticSolver {
 
    /**
     * Implementation of genetic algorithm to solve n-queens.
+    *
     * @return Result instance with runtime set
     */
    public Result solve() {
@@ -50,8 +51,8 @@ public class GeneticSolver {
          for (int i = nextPopulation.length / 2; i < nextPopulation.length; i++) {
             int[] a, b;
 
-            a = nextPopulation[(int) (nextPopulation.length / 2)].getBoard();
-            b = nextPopulation[(int) (nextPopulation.length / 2)].getBoard();
+            a = nextPopulation[nextPopulation.length / 2].getBoard();
+            b = nextPopulation[nextPopulation.length / 2].getBoard();
 
             nextPopulation[i] = reproduce(a, b);
 
@@ -70,7 +71,9 @@ public class GeneticSolver {
 
    /**
     * Copies and sorts the given population in non-increasing order.
+    *
     * @param in unsorted population
+    *
     * @return sorted population
     */
    private BoardState[] select(BoardState[] in) {
@@ -85,15 +88,17 @@ public class GeneticSolver {
 
    /**
     * Compares two given board states by fitness.
+    *
     * @param a First board state.
     * @param b Second board state.
+    *
     * @return (fitness of b) - (fitness of a)
     */
    private int compareStates(BoardState a, BoardState b) {
       int out = b.getFitness() - a.getFitness();
 
-      a.setModified(false);
-      b.setModified(false);
+      a.setNotModified();
+      b.setNotModified();
 
       return out;
    }
@@ -101,8 +106,10 @@ public class GeneticSolver {
    /**
     * Generates child of two given board descriptions.
     * Concatenates second half of b to first half of a.
+    *
     * @param a first board description
     * @param b second board description
+    *
     * @return child board state of two given parents
     */
    private BoardState reproduce(int[] a, int[] b) {
@@ -120,6 +127,7 @@ public class GeneticSolver {
 
    /**
     * Randomizes position of the queen in a randomly selected row of the given board state.
+    *
     * @param board Child board to be mutated
     */
    private void mutate(BoardState board) {

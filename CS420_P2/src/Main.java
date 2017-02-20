@@ -2,14 +2,15 @@ import java.util.Scanner;
 
 /**
  * n-queens solver using simple hill climbing and a genetic algorithm
- *
+ * <p>
  * Created by Gabriel on 2017/02/17.
  */
-public class Main {
+class Main {
    public static final int BOARD_SIZE = 20;
 
    /**
     * Main method
+    *
     * @param args takes no command line arguments
     */
    public static void main(String[] args) {
@@ -31,6 +32,7 @@ public class Main {
    /**
     * Runs both algorithms n times and formats output to be easily parsable.
     * Used to generate data to determine runtime and cost.
+    *
     * @param n number of times to run each algorithm
     */
    private static void getData(int n) {
@@ -40,12 +42,12 @@ public class Main {
 
       for (int i = 0; i < n; i++) {
          hillClimb = (new HillClimbSolver(BoardState.generateBoard())).solve();
-         System.out.printf("HillClimb,%s",hillClimb.toCSV());
+         System.out.printf("HillClimb,%s", hillClimb.toCSV());
       }
 
       for (int i = 0; i < n; i++) {
          genetic = (new GeneticSolver()).solve();
-         System.out.printf("Genetic,%s",genetic.toCSV());
+         System.out.printf("Genetic,%s", genetic.toCSV());
       }
    }
 

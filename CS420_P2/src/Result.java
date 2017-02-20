@@ -1,11 +1,11 @@
 /**
  * Class that describes an object that formats the results from solving an n-queens problem
- *
+ * <p>
  * Created by Gabriel on 2017/02/17.
  */
 public class Result {
-   private BoardState board;
-   private long time;
+   private final BoardState board;
+   private       long       time;
 
    /**
     * Sets board
@@ -29,6 +29,7 @@ public class Result {
 
    /**
     * Generates formatted string giving readable results.
+    *
     * @return Formatted string containing final board, conflict count, and time elapsed
     */
    public String toString() {
@@ -42,11 +43,12 @@ public class Result {
 
    /**
     * Generates formatted string giving easily parsable results.
+    *
     * @return Formatted string containing number of conflicts, time, and number of board states separated by commas
     */
    public String toCSV() {
       // conflict count, time (seconds), Board Count
-      String out = String.format("%d,%f,%d\n",BoardState.countConflicts(board.getBoard()),time*0.000000001,BoardState.COUNT);
-      return out;
+      return String
+              .format("%d,%f,%d\n", BoardState.countConflicts(board.getBoard()), time * 0.000000001, BoardState.COUNT);
    }
 }

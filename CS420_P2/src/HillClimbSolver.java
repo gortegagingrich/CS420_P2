@@ -3,9 +3,9 @@
  * <p>
  * Created by Gabriel on 2017/02/17.
  */
-public class HillClimbSolver {
-   private int[] board;
-   private int   numConflicts;
+class HillClimbSolver {
+   private final int[] board;
+   private       int   numConflicts;
 
    /**
     * Sets up to solve given board
@@ -41,13 +41,12 @@ public class HillClimbSolver {
     *
     * @return Result instance with runtime not set
     */
-   public Result solveRecursion() {
+   private Result solveRecursion() {
       // {number of conflicts, index to change, value of index}
       int[] min = {Integer.MAX_VALUE, 0, 0};
       int[] nextBoard = new int[Main.BOARD_SIZE];
       int conflictCount;
       System.arraycopy(board, 0, nextBoard, 0, Main.BOARD_SIZE);
-
 
 
       // find successor with minimum number of conflicts

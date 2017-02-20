@@ -3,11 +3,11 @@
  * <p>
  * Created by Gabriel on 2017/02/17.
  */
-public class BoardState {
+class BoardState {
+   public static int COUNT = 0;
    private int[]   board;
    private boolean modified;
    private int     fitness;
-   public static int COUNT = 0;
 
    /**
     * Creates board state with given board
@@ -25,7 +25,7 @@ public class BoardState {
    }
 
    /**
-    * Counts totale number of conflicts in a given board
+    * Counts total number of conflicts in a given board
     *
     * @param board Representation of board. {row 1 queen index, row 2 queen index, ...}
     *
@@ -110,8 +110,8 @@ public class BoardState {
       return out;
    }
 
-   public void setModified(boolean modified) {
-      this.modified = modified;
+   public void setNotModified() {
+      this.modified = false;
    }
 
    /**
