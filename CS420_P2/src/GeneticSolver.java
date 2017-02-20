@@ -7,6 +7,10 @@ import java.util.Arrays;
  */
 class GeneticSolver {
    private BoardState[] population;
+   // mutation rate
+   public static double MUTATE = 0.2;
+   // crossover rate
+   public static double CROSSOVER = 0.9;
 
    /**
     * Generate initial population of 200 random boards
@@ -48,16 +52,16 @@ class GeneticSolver {
          }
 
          // crossover
-         for (int i = nextPopulation.length / 2; i < nextPopulation.length; i++) {
+         for (int i = (int)(nextPopulation.length * (1 - CROSSOVER)); i < nextPopulation.length; i++) {
             int[] a, b;
 
-            a = nextPopulation[nextPopulation.length / 2].getBoard();
-            b = nextPopulation[nextPopulation.length / 2].getBoard();
+            a = nextPopulation[(int)(nextPopulation.length * (1 - CROSSOVER))].getBoard();
+            b = nextPopulation[(int)(nextPopulation.length * (1 - CROSSOVER))].getBoard();
 
             nextPopulation[i] = reproduce(a, b);
 
             // mutation
-            if (Math.random() < 0.1) {
+            if (Math.random() < MUTATE) {
                mutate(nextPopulation[i]);
             }
 
