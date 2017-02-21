@@ -10,7 +10,7 @@ class GeneticSolver {
    // mutation rate
    public static double MUTATE = 0.2;
    // crossover rate
-   public static double CROSSOVER = 0.9;
+   public static double CROSSOVER = 0.8;
 
    /**
     * Generate initial population of 200 random boards
@@ -55,7 +55,7 @@ class GeneticSolver {
          for (int i = (int)(nextPopulation.length * (1 - CROSSOVER)); i < nextPopulation.length; i++) {
             int[] a, b;
 
-            a = nextPopulation[(int)(nextPopulation.length * (1 - CROSSOVER))].getBoard();
+            a = nextPopulation[(int)(Math.random() * nextPopulation.length * (1 - CROSSOVER))].getBoard();
             b = nextPopulation[(int)(nextPopulation.length * (1 - CROSSOVER))].getBoard();
 
             nextPopulation[i] = reproduce(a, b);

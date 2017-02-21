@@ -15,14 +15,15 @@ class Main {
     */
    public static void main(String[] args) {
       Scanner scan = new Scanner(System.in);
-
+      String c;
       main:
       while (true) {
          testRandomBoard();
 
          System.out.print("Solve another (Y/n): ");
-         switch (scan.nextLine()) {
-            case "n":
+
+         switch (((c = scan.nextLine()).length() > 0) ? c.charAt(0) : 'Y') {
+            case 'n':
                System.out.println("Exiting...");
                break main;
          }
